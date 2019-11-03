@@ -1,4 +1,4 @@
-# jantar.Jantar dos Filósofos
+# Jantar dos Filósofos
 ## Trabalho de Sistemas Operacionais
 Objetivos
 1. Utilizar programação multithreading.
@@ -6,7 +6,7 @@ Objetivos
 3. Estudar soluções para o problema clássico do jantar dos filósofos.
 
 
-### jantar.Jantar para N filósofos:
+### Jantar para N filósofos:
 
 Este trabalho prático consiste na implementação de uma aplicação multithreading capaz de
 modelar o problema do jantar dos filósofos para N filósofos.
