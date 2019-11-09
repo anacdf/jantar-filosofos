@@ -1,65 +1,40 @@
 package jantar;
 
-import java.util.concurrent.Semaphore;
 
 public class Filosofo implements Runnable {
-    private int vezesComeu;
-    private int vezesPensou;
-    private Semaphore garfoEsquerdo;
-    private Semaphore garfoDireito;
+    private Garfo garfoEsquerdo;
+    private Garfo garfoDireito;
     private String nome;
 
-    public Filosofo(Semaphore garfoEsquerdo, Semaphore garfoDireito, String nome) {
-        this.vezesComeu = 0;
-        this.vezesPensou = 0;
+    public Filosofo(Garfo garfoEsquerdo, Garfo garfoDireito, String nome) {
         this.garfoEsquerdo = garfoEsquerdo;
         this.garfoDireito = garfoDireito;
         this.nome = nome;
     }
 
-    public int getVezesComeu() {
-        return vezesComeu;
-    }
-
-    public void setVezesComeu(int vezesComeu) {
-        this.vezesComeu = vezesComeu;
-    }
-
-    public int getVezesPensou() {
-        return vezesPensou;
-    }
-
-    public void setVezesPensou(int vezesPensou) {
-        this.vezesPensou = vezesPensou;
-    }
-
-    public Semaphore getGarfoEsquerdo() {
-        return garfoEsquerdo;
-    }
-
-    public void setGarfoEsquerdo(Semaphore garfoEsquerdo) {
-        this.garfoEsquerdo = garfoEsquerdo;
-    }
-
-    public Semaphore getGarfoDireito() {
-        return garfoDireito;
-    }
-
-    public void setGarfoDireito(Semaphore garfoDireito) {
-        this.garfoDireito = garfoDireito;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
+    //estado = pensando;
 
     public void run() {
+        //pega o garfo pra comer
+        while (true) {
+            try {
+                garfoEsquerdo.pegar(); //pegar garfo
 
+                System.out.println(nome + "pegou Garfo Esquerdo");
+
+                //estado = comendo
+
+                Thread.sleep(1000);
+
+                garfoDireito.soltar();
+
+                //estado = pensando, solta os garfos. espera 2 seg
+                //estado = com fome: qnd só consegue pegar 1 garfo;
+
+            } catch (InterruptedException e) {
+
+            }
+        }
     }
 
     public void start() {

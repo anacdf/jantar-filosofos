@@ -8,24 +8,17 @@ public class Garfo {
     private EstadoGarfo estadoGarfo;
     private Semaphore semaforo;
 
-    public Garfo() {
+    public Garfo(int permits) {
         this.estadoGarfo = EstadoGarfo.LIVRE;
-        this.semaforo = new Semaphore(1);
+        this.semaforo = new Semaphore(permits);
     }
 
-    public EstadoGarfo getEstadoGarfo() {
-        return estadoGarfo;
+    public void pegar() {
+        //aquire
     }
 
-    public void setEstadoGarfo(EstadoGarfo estadoGarfo) {
-        this.estadoGarfo = estadoGarfo;
+    public void soltar() {
+        //release
     }
 
-    public Semaphore getSemaforo() {
-        return semaforo;
-    }
-
-    public void setSemaforo(Semaphore semaforo) {
-        this.semaforo = semaforo;
-    }
 }
