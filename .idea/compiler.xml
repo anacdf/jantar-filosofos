@@ -9,5 +9,8 @@
         <module name="jantar-filosofos" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="jantar-filosofos" target="1.5" />
+    </bytecodeTargetLevel>
   </component>
 </project>

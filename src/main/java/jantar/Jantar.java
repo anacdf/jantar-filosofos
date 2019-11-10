@@ -1,13 +1,13 @@
 package jantar;
 
-import java.nio.Buffer;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.Semaphore;
+import jantar.Filosofo;
+import jantar.Garfo;
 
 public class Jantar {
     public static void main(String[] args) {
         int nFilosofos = 5;
+
+        //fazer ser dinâmico para usar quantos filófos/garfos quiser.
 
         Garfo garfo1 = new Garfo(1);
         Garfo garfo2 = new Garfo(1);
@@ -15,11 +15,25 @@ public class Jantar {
         Garfo garfo4 = new Garfo(1);
         Garfo garfo5 = new Garfo(1);
 
-        Filosofo filosofo1 = new Filosofo(garfo1, garfo5, "Filosofo1");
-        Filosofo filosofo2 = new Filosofo(garfo1, garfo2, "Filosofo2");
-        Filosofo filosofo3 = new Filosofo(garfo2, garfo3, "Filosofo3");
-        Filosofo filosofo4 = new Filosofo(garfo3, garfo4, "Filosofo4");
-        Filosofo filosofo5 = new Filosofo(garfo4, garfo5, "Filosofo5");
+        Thread filosofo1 = new Thread(new Filosofo(garfo1, garfo5, "Filosofo1"));
+        Thread filosofo2 = new Thread(new Filosofo(garfo1, garfo2, "Filosofo2"));
+        Thread filosofo3 = new Thread(new Filosofo(garfo2, garfo3, "Filosofo3"));
+        Thread filosofo4 = new Thread(new Filosofo(garfo3, garfo4, "Filosofo4"));
+        Thread filosofo5 = new Thread(new Filosofo(garfo4, garfo5, "Filosofo5"));
+
+        filosofo1.start();
+        filosofo2.start();
+        filosofo3.start();
+        filosofo4.start();
+        filosofo5.start();
+
+        //setar tempo para o jantar terminar e printar os resultados.
+
+        System.out.println(filosofo1.toString());
+        System.out.println(filosofo2.toString());
+        System.out.println(filosofo3.toString());
+        System.out.println(filosofo4.toString());
+        System.out.println(filosofo5.toString());
 
     }
 }
