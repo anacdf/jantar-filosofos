@@ -1,7 +1,5 @@
 package jantar;
 
-import jantar.enums.EstadoGarfo;
-
 import java.util.concurrent.Semaphore;
 
 public class Garfo {
@@ -18,5 +16,4 @@ public class Garfo {
     public void soltar() {
         semaforo.release();
     }
-
 }

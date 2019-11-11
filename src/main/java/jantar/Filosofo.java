@@ -1,6 +1,5 @@
 package jantar;
 
-
 import static java.lang.Thread.sleep;
 
 import java.util.Random;
@@ -13,27 +12,30 @@ public class Filosofo implements Runnable {
     private int pensou;
     private int comeu;
     private int tentou;
+    private Resultado resultado;
 
-    public Filosofo(Garfo garfoEsquerdo, Garfo garfoDireito, String nome) {
+    public Filosofo(Garfo garfoEsquerdo, Garfo garfoDireito, String nome, Resultado resultado) {
         this.garfoEsquerdo = garfoEsquerdo;
         this.garfoDireito = garfoDireito;
         this.nome = nome;
+        this.resultado = resultado;
 
         pensou = 0;
         comeu = 0;
         tentou = 0;
     }
 
-    //estado = pensando;
-
     public void run() {
+        long inicio = System.currentTimeMillis();
+        long fim;
+
         while (true) {
             try {
                 System.out.println(nome + " pensando");
-                pensou+= 1;
+                pensou += 1;
+                resultado.setPensou(pensou);
                 sleep(5000);
-                
-                
+
                 if (garfoDireito.pegar()) {
                     System.out.println(nome + " pegou garfo direito");
                     if (garfoEsquerdo.pegar()) {
@@ -41,6 +43,7 @@ public class Filosofo implements Runnable {
                         try {
                             System.out.println(nome + " comendo");
                             comeu += 1;
+                            resultado.setComeu(comeu);
                             sleep(2000); // eating;
                         } catch (InterruptedException ex) {
                         }
@@ -53,28 +56,25 @@ public class Filosofo implements Runnable {
                         garfoDireito.soltar();
                         System.out.println(nome + " tentou comer");
                         tentou++;
-                        Thread.sleep(random.nextInt(4)*1000);
+                        resultado.setTentou(tentou);
+                        Thread.sleep(random.nextInt(4) * 1000);
                     }
-                }else {
-                	System.out.println(nome + " tentou comer");
-                	tentou++;
-                	Thread.sleep(random.nextInt(4)*1000);
-                }                
-                
+                } else {
+                    System.out.println(nome + " tentou comer");
+                    tentou++;
+                    resultado.setTentou(tentou);
+                    Thread.sleep(random.nextInt(4) * 1000);
+                }
+
             } catch (InterruptedException ex) {
             }
-//            while (true) {
-//                comer();
-//            }
-            
-            System.out.println(nome + " pensou: " + pensou + " vezes, comeu " + comeu + " vezes e tentou comer " + tentou + " vezes.");
-            
+
+            fim = System.currentTimeMillis();
+            if ((fim - inicio) > (resultado.getTempoJantar() * 1000)) {
+                System.out.println(resultado.toString());
+                break;
+            }
         }
     }
-    
-    
-    @Override
-    public String toString() {
-        return nome + " pensou: " + pensou + " vezes, comeu " + comeu + " vezes e tentou comer " + tentou + " vezes.";
-    }
+
 }
